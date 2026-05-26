@@ -15,7 +15,22 @@ export type PlanLimits = {
   prioritySupport: boolean;
 };
 
+export type PlanPricing = {
+  monthlyPrice: number;
+  yearlyPrice: number;
+  stripePriceIdMonthly?: string;
+  stripePriceIdYearly?: string;
+};
+
 export const planOrder: PlanId[] = ["free", "warrior", "elite", "champion", "legend"];
+
+export const planPricing: Record<PlanId, PlanPricing> = {
+  free: { monthlyPrice: 0, yearlyPrice: 0 },
+  warrior: { monthlyPrice: 9, yearlyPrice: 84 },
+  elite: { monthlyPrice: 29, yearlyPrice: 276 },
+  champion: { monthlyPrice: 79, yearlyPrice: 756 },
+  legend: { monthlyPrice: 199, yearlyPrice: 1908 }
+};
 
 export const planLimits: Record<PlanId, PlanLimits> = {
   free: {
@@ -93,4 +108,11 @@ export const planLimits: Record<PlanId, PlanLimits> = {
 export function canUseResource(plan: PlanId, key: keyof PlanLimits, used: number) {
   const limit = planLimits[plan][key];
   return typeof limit === "number" ? used < limit : true;
+}
+
+export function getSavingsPercent(plan: PlanId): number {
+  const p = planPricing[plan];
+  if (p.monthlyPrice === 0) return 0;
+  const yearlyMonthly = p.yearlyPrice / 12;
+  return Math.round(((p.monthlyPrice - yearlyMonthly) / p.monthlyPrice) * 100);
 }
