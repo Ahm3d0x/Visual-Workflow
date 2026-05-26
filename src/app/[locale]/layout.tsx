@@ -15,9 +15,10 @@ export default async function LocaleLayout({
     notFound();
   }
   const locale: Locale = rawLocale;
+  const { dir } = localeMeta[locale];
 
   return (
-    <div className="app-shell" lang={locale} dir={localeMeta[locale].dir}>
+    <div className="app-shell page-enter" lang={locale} dir={dir}>
       <AppHeader locale={locale} />
       <main>{children}</main>
     </div>

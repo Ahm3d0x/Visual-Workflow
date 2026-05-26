@@ -4,6 +4,7 @@
 نحوّل Visual Workflow Builder إلى منصة احترافية لإنشاء وإدارة ومشاركة Workflows، فيها تسجيل دخول، مزامنة سحابية، تعاون لحظي، خطط مدفوعة، ذكاء اصطناعي مساعد، مكتبة عناصر ضخمة، وتجربة ممتازة على الكمبيوتر والتابلت والموبايل.
 
 **الستاك المقترح**
+
 - Frontend: `Next.js` + `TypeScript` + `React Flow` أو `XYFlow` للـ workflow canvas.
 - UI: `Tailwind CSS` + `shadcn/ui` + `lucide-react`.
 - Database/Auth/Realtime: `Supabase`.
@@ -11,11 +12,12 @@
 - Realtime collaboration: Supabase Realtime + Presence + Broadcast.
 - State: `Zustand`.
 - Forms/validation: `React Hook Form` + `Zod`.
-- AI features: OpenAI API لاحقا للمساعد الذكي.
+- AI features: OpenAI API & giminai
 
 **مراحل التطوير**
 
 **1. إعادة بناء الأساس**
+
 - تحويل المشروع من ملف HTML واحد إلى تطبيق Next.js منظم.
 - تقسيم التطبيق إلى:
   - Auth pages
@@ -28,6 +30,7 @@
 - الاحتفاظ بإمكانية offline draft لاحقا كميزة إضافية.
 
 **2. نظام الحسابات**
+
 - تسجيل حساب بالإيميل وكلمة المرور.
 - تسجيل الدخول بجوجل عبر Supabase Auth.
 - صفحة Profile.
@@ -37,6 +40,7 @@
 - ربط كل Dashboard وWorkflow بالمستخدم أو الفريق.
 
 **3. الداشبورد الجديد**
+
 - عرض كل الـ workflows كقائمة أو grid.
 - بحث سريع.
 - فلاتر: آخر تعديل، المالك، المشتركين، الحالة، النوع.
@@ -56,6 +60,7 @@
   - أرشفة أو حذف.
 
 **4. محرر الـ Workflow**
+
 - Canvas احترافي باستخدام React Flow.
 - Zoom / pan / minimap / fit view.
 - Grid و snap-to-grid.
@@ -174,6 +179,7 @@
   - Assigned user/team
 
 **7. التعاون اللحظي**
+
 - مشاركة workflow مع مستخدمين آخرين.
 - صلاحيات:
   - Owner
@@ -270,15 +276,16 @@
 **9. الخطط المدفوعة**
 أنت قلت “ثلاث أنواع” لكن كتبت أربع خطط: `warrior`, `elite`, `champion`, `legend`. أقترح نخليها: Free + 4 paid tiers.
 
-| الخطة | Workflows | عناصر لكل workflow | تعاون | AI | مميزات |
-|---|---:|---:|---:|---|---|
-| Free | 3 | 50 | مشاركة view فقط | محدود جدا | Export JSON |
-| Warrior | 20 | 250 | 3 أعضاء | مساعد بسيط | Templates + PNG export |
-| Elite | 75 | 1000 | 10 أعضاء | AI متوسط | Realtime editing + version history |
-| Champion | 250 | 5000 | 30 عضو | AI قوي | Integrations + advanced permissions |
-| Legend | غير محدود نسبيا | كبير جدا | فرق كبيرة | أعلى حدود | White-label + priority support |
+| الخطة    |       Workflows | عناصر لكل workflow |           تعاون | AI         | مميزات                              |
+| -------- | --------------: | -----------------: | --------------: | ---------- | ----------------------------------- |
+| Free     |               3 |                 50 | مشاركة view فقط | محدود جدا  | Export JSON                         |
+| Warrior  |              20 |                250 |         3 أعضاء | مساعد بسيط | Templates + PNG export              |
+| Elite    |              75 |               1000 |        10 أعضاء | AI متوسط   | Realtime editing + version history  |
+| Champion |             250 |               5000 |          30 عضو | AI قوي     | Integrations + advanced permissions |
+| Legend   | غير محدود نسبيا |           كبير جدا |       فرق كبيرة | أعلى حدود  | White-label + priority support      |
 
 **قيود مدفوعة مناسبة**
+
 - عدد الـ workflows.
 - عدد العناصر داخل workflow.
 - عدد أعضاء التعاون.
@@ -296,6 +303,7 @@
 - Automation execution لاحقا.
 
 **التجربة المجانية**
+
 - أول 14 يوم Trial على خطة `Legend`.
 - لا يحتاج بطاقة بنكية في البداية أو حسب قرارك التجاري.
 - بعد نهاية التجربة يرجع تلقائيا إلى Free.
@@ -303,6 +311,7 @@
 - تنبيهات قبل الوصول للحدود.
 
 **10. الذكاء الاصطناعي**
+
 - إنشاء workflow من وصف نصي.
 - اقتراح تحسينات على workflow موجود.
 - اكتشاف أخطاء منطقية:
@@ -318,6 +327,7 @@
 - AI templates حسب المجال: مبيعات، دعم، HR، e-commerce، operations.
 
 **11. تجربة الموبايل والتابلت**
+
 - على الكمبيوتر: sidebar + canvas + properties panel.
 - على التابلت: panels قابلة للطي.
 - على الموبايل:
@@ -332,6 +342,7 @@
 - منع تداخل النصوص والعناصر.
 
 **12. أولويات التنفيذ**
+
 1. تحويل المشروع إلى Next.js.
 2. بناء التصميم الجديد والـ layout الأساسي.
 3. إعداد Supabase Auth مع Google login.
