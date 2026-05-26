@@ -149,11 +149,11 @@ export default function LandingPage() {
           <p className="muted mb-10 max-w-lg mx-auto">Start free with 3 workflows. Upgrade as your team grows.</p>
           <div className="grid gap-4 md:grid-cols-5">
             {([
-              { name: "Free", price: "$0", desc: "3 workflows" },
-              { name: "Warrior", price: "$9", desc: "20 workflows" },
+              { name: "Free", price: "$0", desc: "3 workflows", popular: false },
+              { name: "Warrior", price: "$9", desc: "20 workflows", popular: false },
               { name: "Elite", price: "$29", desc: "75 workflows", popular: true },
-              { name: "Champion", price: "$79", desc: "250 workflows" },
-              { name: "Legend", price: "$199", desc: "1000 workflows" }
+              { name: "Champion", price: "$79", desc: "250 workflows", popular: false },
+              { name: "Legend", price: "$199", desc: "1000 workflows", popular: false }
             ] as const).map((plan) => (
               <div
                 className={`panel p-5 text-center ${plan.popular ? "relative overflow-hidden" : ""}`}

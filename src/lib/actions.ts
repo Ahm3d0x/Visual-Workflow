@@ -28,12 +28,19 @@ export async function createWorkflow(name: string, workspaceId: string) {
   if (error) throw error;
 
   // Update usage
-  await supabase.rpc("increment_usage", { ws_id: workspaceId, col: "workflows" }).catch(() => {
-    // RPC might not exist, fallback to manual
-    supabase.from("plan_usage")
-      .update({ workflows: supabase.rpc ? undefined : 1 })
-      .eq("workspace_id", workspaceId);
-  });
+  try {
+    const { error: rpcError } = await supabase.rpc("increment_usage", { ws_id: workspaceId, col: "workflows" });
+    if (rpcError) {
+      const { data: usage } = await supabase.from("plan_usage").select("workflows").eq("workspace_id", workspaceId).maybeSingle();
+      if (usage) {
+        await supabase.from("plan_usage")
+          .update({ workflows: (usage.workflows || 0) + 1 })
+          .eq("workspace_id", workspaceId);
+      }
+    }
+  } catch {
+    // Suppress error so that workflow creation is not blocked if usage tracking fails
+  }
 
   return workflow;
 }
