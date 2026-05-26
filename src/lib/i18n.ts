@@ -96,7 +96,46 @@ export const dictionaries = {
     "properties.labels": "التصنيفات",
     "properties.schema": "المخطط",
     "properties.routes": "المسارات",
-    "properties.rules": "القواعد"
+    "properties.rules": "القواعد",
+    "nav.settings": "الإعدادات",
+    "common.saving": "جاري الحفظ...",
+    "common.saved": "تم الحفظ بنجاح",
+
+    // Profile Settings
+    "profile.title": "إعدادات الملف الشخصي",
+    "profile.subtitle": "إدارة معلومات حسابك الشخصي وتفضيلات المظهر واللغة.",
+    "profile.avatar": "الصورة الشخصية",
+    "profile.changeAvatar": "تغيير الصورة",
+    "profile.fullName": "الاسم الكامل",
+    "profile.email": "البريد الإلكتروني",
+    "profile.language": "لغة النظام",
+    "profile.theme": "المظهر (Theme)",
+    "profile.themeSystem": "تلقائي حسب النظام",
+    "profile.themeLight": "مضيء (Light)",
+    "profile.themeDark": "داكن (Dark)",
+    "profile.saved": "تم حفظ التعديلات",
+    "profile.deleteAccount": "حذف الحساب",
+    "profile.deleteWarning": "تحذير: سيؤدي حذف حسابك إلى مسح كافة بياناتك ومشاريعك نهائياً وبشكل لا يمكن استعادته.",
+
+    // Workspace Settings
+    "workspace.title": "إعدادات مساحة العمل",
+    "workspace.subtitle": "إدارة مساحة العمل المشتركة والأعضاء وصلاحياتهم.",
+    "workspace.name": "اسم مساحة العمل",
+    "workspace.plan": "خطة الاشتراك الحالية",
+    "workspace.members": "الأعضاء والفريق",
+    "workspace.inviteEmail": "البريد الإلكتروني للعضو الجديد",
+    "workspace.inviteMember": "دعوة عضو جديد",
+    "workspace.security": "الأمان والحماية",
+    "workspace.securityDesc": "جميع البيانات والاتصالات مشفرة ومحمية بنظام صلاحيات صارم (RLS) عبر قاعدة بيانات Supabase.",
+    "workspace.deleteWorkspace": "حذف مساحة العمل",
+    "workspace.deleteWarning": "تحذير: سيؤدي حذف مساحة العمل إلى مسح كافة المخططات والداشبوردات والأعضاء التابعين لها نهائياً.",
+
+    // Roles
+    "role.owner": "المالك",
+    "role.admin": "مدير",
+    "role.editor": "محرر",
+    "role.commenter": "معلق",
+    "role.viewer": "مشاهد"
   },
   en: {
     "app.name": "Visual Workflow",
@@ -177,7 +216,46 @@ export const dictionaries = {
     "properties.labels": "Labels",
     "properties.schema": "Schema",
     "properties.routes": "Routes",
-    "properties.rules": "Rules"
+    "properties.rules": "Rules",
+    "nav.settings": "Settings",
+    "common.saving": "Saving...",
+    "common.saved": "Saved successfully",
+
+    // Profile Settings
+    "profile.title": "Profile Settings",
+    "profile.subtitle": "Manage your personal account details, language, and theme preferences.",
+    "profile.avatar": "Profile Avatar",
+    "profile.changeAvatar": "Change Avatar",
+    "profile.fullName": "Full Name",
+    "profile.email": "Email Address",
+    "profile.language": "System Language",
+    "profile.theme": "Appearance Theme",
+    "profile.themeSystem": "System Default",
+    "profile.themeLight": "Light Mode",
+    "profile.themeDark": "Dark Mode",
+    "profile.saved": "Changes saved successfully",
+    "profile.deleteAccount": "Delete Account",
+    "profile.deleteWarning": "Warning: Deleting your account will permanently wipe all your workflows, dashboards, and profile data.",
+
+    // Workspace Settings
+    "workspace.title": "Workspace Settings",
+    "workspace.subtitle": "Manage your shared workspace settings, members, and collaborative roles.",
+    "workspace.name": "Workspace Name",
+    "workspace.plan": "Active Subscription Plan",
+    "workspace.members": "Members & Team",
+    "workspace.inviteEmail": "New member's email",
+    "workspace.inviteMember": "Invite Member",
+    "workspace.security": "Security & Encryption",
+    "workspace.securityDesc": "All data communications are encrypted and isolated via strict Row Level Security (RLS) policies on Supabase.",
+    "workspace.deleteWorkspace": "Delete Workspace",
+    "workspace.deleteWarning": "Warning: Deleting this workspace will permanently erase all associated workflows, dashboards, and membership data.",
+
+    // Roles
+    "role.owner": "Owner",
+    "role.admin": "Admin",
+    "role.editor": "Editor",
+    "role.commenter": "Commenter",
+    "role.viewer": "Viewer"
   }
 } as const;
 
