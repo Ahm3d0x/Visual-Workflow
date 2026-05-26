@@ -19,7 +19,7 @@ import {
   Layers, MessageSquare, PanelLeftClose, PanelRightClose, Share2,
   Smartphone, type LucideIcon
 } from "lucide-react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
 import { demoEdges, demoNodes } from "@/lib/demo-data";
 import { type Locale, t } from "@/lib/i18n";
 import { getNodeTemplate, nodeCatalog } from "@/lib/node-catalog";
@@ -27,6 +27,9 @@ import { AIAssistant } from "@/components/workflow/ai-assistant";
 import { NodeLibrary } from "@/components/workflow/node-library";
 import { PropertiesPanel } from "@/components/workflow/properties-panel";
 import { WorkflowNode } from "@/components/workflow/workflow-node";
+import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
+import { CommentsPanel } from "./comments-panel";
+import { HistoryPanel } from "./history-panel";
 
 const nodeTypes = { workflowNode: WorkflowNode };
 
@@ -52,6 +55,58 @@ export function WorkflowEditor({
   const [saved, setSaved] = useState(true);
 
   const selectedNode = useMemo(() => nodes.find((node) => node.id === selectedNodeId) ?? null, [nodes, selectedNodeId]);
+
+  // Debounced auto-save effect
+  useEffect(() => {
+    if (saved || readOnly) return;
+
+    const timer = setTimeout(async () => {
+      try {
+        const supabase = getSupabaseBrowserClient();
+        
+        const dbNodes = nodes.map((node) => ({
+          id: node.id,
+          workflow_id: workflowId,
+          type: String(node.data.nodeType || "process"),
+          position: { x: node.position.x, y: node.position.y },
+          data: node.data,
+          style: node.style || {}
+        }));
+
+        const dbEdges = edges.map((edge) => ({
+          id: edge.id,
+          workflow_id: workflowId,
+          source_node_id: edge.source,
+          target_node_id: edge.target,
+          source_handle: edge.sourceHandle || null,
+          target_handle: edge.targetHandle || null,
+          data: edge.data || {}
+        }));
+
+        await supabase.from("workflow_edges").delete().eq("workflow_id", workflowId);
+        await supabase.from("workflow_nodes").delete().eq("workflow_id", workflowId);
+        
+        if (dbNodes.length > 0) {
+          await supabase.from("workflow_nodes").insert(dbNodes);
+        }
+        if (dbEdges.length > 0) {
+          await supabase.from("workflow_edges").insert(dbEdges);
+        }
+
+        await supabase.from("workflows").update({ updated_at: new Date().toISOString() }).eq("id", workflowId);
+
+        setSaved(true);
+      } catch (_) {}
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, [nodes, edges, saved, workflowId, readOnly]);
+
+  const handleRestore = useCallback((restoredNodes: Node[], restoredEdges: Edge[]) => {
+    setNodes(restoredNodes);
+    setEdges(restoredEdges);
+    setSaved(false);
+  }, []);
   const favorites = ["start", "process", "decision", "api_request", "ai_generate"];
   const customTemplates = nodeCatalog.filter((node) => ["api_request", "approval"].includes(node.type)).map((node) => ({
     ...node,
@@ -226,31 +281,22 @@ export function WorkflowEditor({
               ) : null}
 
               {rightTab === "comments" ? (
-                <div className="grid gap-3 p-4">
-                  <h2 className="font-semibold">{t(locale, "editor.comments")}</h2>
-                  <div className="flex flex-col items-center py-8 text-center">
-                    <MessageSquare size={24} className="muted-light mb-2" />
-                    <p className="muted text-sm">{t(locale, "editor.noComments")}</p>
-                  </div>
-                  <textarea
-                    className="input min-h-16"
-                    placeholder={t(locale, "editor.addComment")}
-                  />
-                  <button className="button primary sm" type="button">{t(locale, "common.save")}</button>
-                </div>
+                <CommentsPanel 
+                  locale={locale} 
+                  workflowId={workflowId} 
+                  selectedNodeId={selectedNodeId} 
+                  selectedNodeTitle={selectedNode ? String(selectedNode.data.title || selectedNode.id) : undefined} 
+                />
               ) : null}
 
               {rightTab === "history" ? (
-                <div className="grid gap-3 p-4">
-                  <div className="flex items-center justify-between">
-                    <h2 className="font-semibold">{t(locale, "editor.history")}</h2>
-                    <button className="button sm" type="button">{t(locale, "editor.createSnapshot")}</button>
-                  </div>
-                  <div className="flex flex-col items-center py-8 text-center">
-                    <History size={24} className="muted-light mb-2" />
-                    <p className="muted text-sm">{t(locale, "editor.noHistory")}</p>
-                  </div>
-                </div>
+                <HistoryPanel 
+                  locale={locale} 
+                  workflowId={workflowId} 
+                  currentNodes={nodes} 
+                  currentEdges={edges} 
+                  onRestore={handleRestore} 
+                />
               ) : null}
 
               {rightTab === "layers" ? (

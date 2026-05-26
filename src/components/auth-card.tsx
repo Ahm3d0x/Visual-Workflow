@@ -1,6 +1,6 @@
 "use client";
 
-import { Chrome, Mail, ArrowRight } from "lucide-react";
+import { Chrome, Mail } from "lucide-react";
 import { useState } from "react";
 import { type Locale, t } from "@/lib/i18n";
 import { getSupabaseBrowserClient, isSupabaseConfigured } from "@/lib/supabase-browser";
